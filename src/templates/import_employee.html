@@ -1,0 +1,49 @@
+{% load staticfiles %}
+{% include 'navbar.html' %}
+{% load crispy_forms_tags %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+  <body>
+  <div class="maincontainer">
+
+    <div class="container">
+
+      <!-- Main component for a primary marketing message or call to action -->
+      <div class="jumbotron">
+      <div class="label">{{label}}</div><br>
+        <div class="row">
+          
+            <div class="col-sm-6">
+              <div class="bucket">
+                {% if request.user.is_authenticated %}
+                <form method="post" enctype="multipart/form-data">{% csrf_token %}
+                  <div class="custom-title">{{heading}}</div><br/><br/>
+                  <div class="custom-title">{{title}}</div><br/><br/>
+                    <div class="asset-form form-edit">
+                     {{form|crispy}}
+                    </div>
+                    <input type="file" name="myfile"><br>
+                    <button type="submit" class='btn btn-primary' size="4"><font color = 'white'>Upload</font></button>
+
+                    <a href="/"><input class='btn btn-danger cancel-submit' value='Back'/></a>
+                {% endif %}
+                </form>
+              </div><!--Bucket class end-->
+            </div> <!--jumboton col 1-->
+            <div class="col-sm-6 aligncenter asset-image">
+                  <!-- <img src="/static/img/assets.png"> -->
+            </div><!--  jumboton col 2 of jumbotron col 2 -->        
+        </div> <!--jumboton col 1-->
+          
+        </div> <!--jumboton row-->
+        </div> <!--jumboton row-->
+      </div> <!--jumbotron end-->
+
+    </div> <!-- /container -->
+    <a href="#" class="scrollToTop">Scroll To Top</a>
+    </div>
+
+  </body>
+</html>

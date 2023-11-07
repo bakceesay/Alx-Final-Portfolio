@@ -1,0 +1,44 @@
+{% load staticfiles %}
+{% include 'navbar.html' %}
+{% load crispy_forms_tags %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+  <body>
+  <div class="maincontainer">
+    <div class="container">
+
+      <!-- Main component for a primary marketing message or call to action -->
+      <div class="jumbotron">
+        <div class="row">
+        <div class="status message">
+          <ul class="messages">
+            {% for message in messages %}
+            <li {% if message.tags %} class="{{ message.tags }}"{% endif %}><font size="4">{{ message }}</font></li>
+            {% endfor %}
+          </ul>
+        </div><!--status message end-->
+        <hr>
+        </div>
+        <div class="row">
+          <div class="col-sm-4 form-it-self">
+            <form method='POST' action=''>{% csrf_token %}
+              <font color="#2e6da4" size="5">{{heading}}</font><br>
+              <font color="red" size="2.5">{{title}}</font><br><br>
+                 {{form|crispy}}
+                <b><a href="/accounts/login/">{{signin}}</a></b>
+                {% if request.user.is_authenticated %}
+                  <input class='btn btn-primary'  type='submit' value='Download Report'/>
+                {% endif %}
+              </form>
+          </div> <!--jumboton col 1-->
+        </div> <!--End row-->
+      </div> <!--jumbotron end-->
+    
+
+    </div> <!-- /container -->
+    </div>
+
+  </body>
+</html>

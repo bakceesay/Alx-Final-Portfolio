@@ -1,0 +1,47 @@
+{% load staticfiles %}
+{% load crispy_forms_tags %}
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+  <body>
+    <div class="status message">
+      <ul class="messages">
+        {% for message in messages %}
+        <li {% if message.tags %} class="{{ message.tags }}"{% endif %}><font size="4">{{ message }}</font></li>
+        {% endfor %}
+      </ul>
+    </div><!--status message end-->
+
+        {% if perms.items.add_store %}
+        <div class="tabs"><!-- First TAB ROW class -->
+              <ul>
+                <li><a href="#racknumber">Add Rack Number</a></li>
+                <li><a href="#boxnumber">Add Box Number</a></li>
+              </ul>
+
+              <div id="racknumber">
+              <p>
+                <form method='POST' action=''>{% csrf_token %}
+                <div class="col-sm-4">{{AddStoreRackNumberForm|crispy}}</div><br>
+                <input type='submit' class='btn btn-primary' value="{{submit}}" />
+                </form>
+              </p>
+              </div>
+              
+              <div id="boxnumber">
+                <p>
+                <form method='POST' action=''>{% csrf_token %}
+                <div class="col-sm-4">{{AddStoreBoxNumberForm|crispy}}</div><br>
+                <input type='submit' class='btn btn-primary' value="{{submit}}" />
+                </form>
+                </p>
+              </div>
+
+        </div><!--end DIV under first h2 tag-->
+        {% else %}<div class="red aligncenter">You do not have permissions to access settings</div>
+        {% endif %}
+
+  </body>
+</html>

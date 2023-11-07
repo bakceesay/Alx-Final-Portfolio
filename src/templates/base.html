@@ -1,0 +1,123 @@
+{% load staticfiles %}
+{% include 'navbar.html' %}
+
+
+<!DOCTYPE html>
+<html lang="en">
+  <body>
+  <!-- <div id="fakeLoader"></div> -->
+  <div class="maincontainer">
+    <div class="container">
+
+      <!-- Main component for a primary marketing message or call to action -->
+      <div class="jumbotron">
+        <div class="row">
+          <div class="col-sm-9"><!--jumboton col 1-->
+              <p>
+                {% if request.user.is_authenticated %}
+                <h1><font color="#2e6da4">Welcome {{title}}</font></h1>
+                <font size="4">
+                <!-- <font color="red">You have successfully signed in.</font> -->
+                Be informed that the system is tracking records of the transactions you do and your user account is being used for audit purpose.
+                <br />
+                Therefore, please keep your <span class="home-account">username</span> and <span class="home-account">password</span> safe.
+                <br /><br />
+                Note that only the menus that you have rights to access will be activated.
+                </font>
+  
+
+                {% else %}
+                  <h2><font color="red">{{title}}</font></h2>
+                  <!-- <font color = "red"> -->
+                    Do not attemp to login to this system if you are not part of the authorized group of National Assembly.
+                  <!-- </font> -->
+                  <br />
+              </p>
+
+              <p>
+                <a class="btn btn-lg btn-primary" href="/accounts/login" role="button"><b>Login &raquo;</b></a>
+              </p>
+
+
+              {% endif %}
+              
+
+
+
+
+         </div> <!--jumboton col 1 end-->
+         <div class="col-sm-3"> <!--Login div colomn-->
+              {% block content %}
+              {% endblock %}
+              <div class="coatofarms">
+                <img src="/static/img/gmcoatofarms.png">
+              </div>
+
+              <br><br>
+
+
+            </div> <!-- END Login div colomn -->
+
+                                {% if request.user.is_authenticated %}
+
+                                  <div class="col-sm-12"><!--card start -->
+
+                                    <a href="{% url 'uimsapp:employee_create' %}">
+                                    <div class="col-sm-4 voucher-thumbnail-display thumbnail">
+                                    <div class="voucher-thumbnail-top">
+
+                                    </div> <!--Thumbname col-->
+                                    <div class="voucher-thumbnail-bottom">
+                                     <img src="/static/img/HRIS.png" style="margin-left: 50px">
+                                    </div> <!--Thumbname col-->
+                                    <div class="voucher-thumbnail-bottom">
+                                    </div> <!--Thumbname col-->
+
+                                    <div class="voucher-thumbnail-bottom">
+
+
+                                    </div> <!--Thumbname col-->
+
+                                  </div>
+                                    <a href="{% url 'uimsapp:employee_import' %}">
+                                    <div class="col-sm-4 voucher-thumbnail-display thumbnail">
+                                    <div class="voucher-thumbnail-top">
+                                    </div> <!--Thumbname col-->
+                                    <div class="voucher-thumbnail-bottom">
+                                     <img src="/static/img/import.png" style="margin-left: 50px"><br>
+                                     <div><class style="align-content: center;"></div>
+                                    </div> <!--Thumbname col-->
+                                    <div class="voucher-thumbnail-bottom">
+                                    </div> <!--Thumbname col-->
+
+                                    <div class="voucher-thumbnail-bottom">
+
+
+                                    </div> <!--Thumbname col-->
+
+                                  </div>
+
+
+
+                                    </div> <!--Thumbname col-->
+                                    </div> <!--Thumbname col-->
+                                    </div> <!--Thumbname col-->
+
+                              {% endif %}
+
+
+        </div> <!--jumboton row-->
+
+        </div>
+
+
+                                  
+
+                    </div> <!---Cards End -->
+
+        </div>
+      </div> <!--jumbotron end-->
+    </div> <!-- /container -->
+
+  </body>
+</html>

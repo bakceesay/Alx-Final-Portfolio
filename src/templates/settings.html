@@ -1,0 +1,84 @@
+{% load staticfiles %}
+{% include 'navbar.html' %}
+{% load crispy_forms_tags %}
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+  <body>
+  <div class="maincontainer">
+    <div class="container">
+
+      <!-- Main component for a primary marketing message or call to action -->
+      <div class="jumbotron jumbotron-store">
+        <div class="row">
+          <div class="col-sm-12">
+          <div class="bucket">
+              <!-- <div class="custom-title">{{title}}</div><br/><br/> -->
+              {% if request.user.is_authenticated %}
+              
+                  <div class="pannel">
+                    <h2 class="custom-title">SYSTEM SETTINGS</h2>
+                        {% if perms.uimsapp.add_fixasset %}
+                          <div class="tabs"><!-- First TAB ROW class -->
+                              <ul>
+                                <li><a href="#ministry">Create Ministry</a></li>
+                                <li><a href="#vocation">Create Vocation</a></li>
+                                <!-- <li><a href="#department">Create Department</a></li> -->
+                              </ul>
+
+                              <div id="ministry">
+                                <p>
+                                <form method='POST' action=''>{% csrf_token %}
+                                <div class="col-sm-4">{{BudgetEntityForm|crispy}}</div><br>
+                                <input type='submit' class='btn btn-primary' value="{{submit}}" />
+                                </form>
+                                </p>
+                              </div>
+
+                              <div id="vocation">
+                                <p>
+                                <form method='POST' action=''>{% csrf_token %}
+                                <div class="col-sm-4">{{VocationForm|crispy}}</div><br>
+                                <input type='submit' class='btn btn-primary' value="{{submit}}" />
+                                </form>
+                                </p>
+                              </div>
+<!-- 
+                              <div id="department">
+                              <p>
+                                <form method='POST' action=''>{% csrf_token %}
+                                <div class="col-sm-4">{{DepartmentForm|crispy}}</div><br>
+                                <input type='submit' class='btn btn-primary' value="{{submit}}" />
+                                </form>
+                              </p>
+                              </div> -->
+
+                        </div><!--end DIV under first h2 tag-->
+                        {% else %}<div class="red aligncenter">You do not have permissions to access settings</div>
+                        {% endif %}
+
+                    
+
+                    <h2 class="custom-title">MORE SETTINGS</h2>
+                        <div class="admin">
+                            {% if request.user.is_staff %}
+                            <iframe src="/admin" width="100%" height="100%"></iframe>
+                            {% else %}<div class="red aligncenter">You do not have permissions to access settings</div>
+                            {% endif %}
+                        </div>
+
+                  </div><!--end div PANNEL class-->
+
+              {% endif %}
+            </div><!--bucket End-->
+          </div><!--jumbotron col 1 end-->
+        </div> <!--jumboton row-->
+      
+      </div> <!--jumbotron end-->
+    </div> <!-- /container -->
+    </div>
+
+  </body>
+</html>

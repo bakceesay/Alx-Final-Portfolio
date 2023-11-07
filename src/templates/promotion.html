@@ -1,0 +1,124 @@
+{% load staticfiles %}
+{% include 'navbar.html' %}
+{% load crispy_forms_tags %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!-- <link rel="icon" href="../../favicon.ico"> -->
+
+    <title>AGD ICT Inventry System</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="{% static 'css/navbar-fixed-top.css' %}" rel="stylesheet">
+    <link href="{% static 'css/custom.css' %}" rel="stylesheet">
+    <link href="{% static 'js/jqueryui/jquery-ui.css' %}" rel="stylesheet">
+    <link href="{% static 'js/jqueryui/jquery-ui.structure.css' %}" rel="stylesheet">
+    <link href="{% static 'js/jqueryui/jquery-ui.theme.css' %}" rel="stylesheet">
+
+
+
+  </head>
+
+  <body>
+  <div class="maincontainer">
+    <div class="container">
+
+      <!-- Main component for a primary marketing message or call to action -->
+      <div class="jumbotron jumbotron-retirement">
+      <div class="label">{{label}}</div>
+      <div>
+        {% if request.user.is_authenticated %}
+        <div class="row retirement-table">
+          <div class="inline-search">
+            <form method='POST' action=''>{% csrf_token %}
+              <div class="custom-title">{{heading}}</div><br/><br/>
+                {{form|crispy}}<br>
+                <div class='submit'><input class='btn btn-primary'  type='submit' value='Search / Export'/></div>
+            </form>
+          </div><p>
+          <br><br>
+          <div class="left-button-retirement">
+
+         <!--    <div class="label">RETIREMENTS</div> -->
+
+            <div class="leftcenter">
+              <a href="{% url 'uimsapp:employee_list' %}"><div class='btn btn-primary new-retirement-botton' size="4"><font color = 'white'>Back to Home</font></div></a>
+            </div>
+
+<!--             <div class="leftcenter">
+              <a href="{% url 'uimsapp:settings' %}"><div class='btn btn-primary new-retirement-botton' size="4"><font color = 'white'>Settings</font></div></a>
+            </div> -->
+
+            <div class="leftcenter">
+
+            <div class="rightcenter">
+              <div class='btn btn-primary new-retirement-botton' size="4"><font color = 'white'>{{assetCount}}</font></div>
+            </div>
+
+
+           </div>
+        </div>
+        {% endif %}
+
+        <div class="row right-of-retirement-form">
+            {% if not request.user.is_authenticated %}
+            <font color="red" size="5">{{title}}</font><br><br>
+            <b><a href="/accounts/login/">{{signin}}</a></b><br>
+            {% endif %}          
+
+          {% if request.user.is_authenticated %}
+              <table class='table'>
+              <thead>
+                  <tr>
+                    <th class='aligncenter'>#</th>
+                    <th class='aligncenter'>EMPLOYMENT NUMBER</th>
+                    <th class='aligncenter'>NAME</th>
+                    <th class='aligncenter'>BUDGET ENTITY</th>
+                    <th class='aligncenter'>GRADE</th>
+                    <th class='aligncenter'>CURRENT APP DATE</th>
+
+                  </tr>
+                </thead>
+              {% for instance in queryset %}
+                  <tr class="spaceUnder">
+                    <td class='aligncenter'>{{forloop.counter}}</td>
+                    <td class='aligncenter'>{{instance.employment_number}}</td>
+                    <td class='aligncenter'>{{instance.name}}</td>
+                    <td class='aligncenter'>{{instance.budget_entity}}</td>
+                    <td class='aligncenter'><a href="{{instance.get_absolute_promotion_url}}">{{instance.grade}}</a></td>
+                    <td class='aligncenter'>{{instance.cad}}</td>
+                  </tr><!-- <br> -->
+              {% endfor %}
+              </table></font>
+          </div> <!-- end right-of-form-->
+          <dir class="create-report-menu aligncenter">
+
+        </div>
+          {% endif %}
+        <div class="row">
+          <div class="status message">
+            <ul class="messages">
+              {% for message in messages %}
+              <li {% if message.tags %} class="{{ message.tags }}"{% endif %}><font size="4">{{ message }}</font></li>
+              {% endfor %}
+            </ul>
+         </div><!--status message end-->
+    </div><!--message row END-->
+    <a href="#" class="scrollToTop">Scroll To Top</a>
+      </div> <!--jumbotron end-->
+
+    </div> <!-- /container -->
+    </div><!--maincontainer div-->
+
+  </body>
+</html>

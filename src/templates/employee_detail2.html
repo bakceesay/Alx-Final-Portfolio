@@ -1,0 +1,295 @@
+{% load staticfiles %}
+{% include 'navbar.html' %}
+{% load crispy_forms_tags %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!-- <link rel="icon" href="../../favicon.ico"> -->
+
+    <title>NAO UMIS</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="{% static 'css/navbar-fixed-top.css' %}" rel="stylesheet">
+    <link href="{% static 'css/custom.css' %}" rel="stylesheet">
+    <link href="{% static 'js/jqueryui/jquery-ui.css' %}" rel="stylesheet">
+    <link href="{% static 'js/jqueryui/jquery-ui.structure.css' %}" rel="stylesheet">
+    <link href="{% static 'js/jqueryui/jquery-ui.theme.css' %}" rel="stylesheet">
+    <link href="{% static 'js/icheck/skins/square/blue.css' %}" rel="stylesheet">
+    <link href="{% static 'js/nprogress/nprogress.css' %}" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{% static 'js/datetimepicker-master/jquery.datetimepicker.css' %}">
+
+
+    <!-- <link href="your-path/square/color-scheme.css" rel="stylesheet"> -->
+
+
+  </head>
+
+  <body>
+  <div class="maincontainer">
+    <div class="container">
+      {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>
+      {% endif %}
+
+      <hr>
+
+      <!-- Main component for a primary marketing message or call to action -->
+     <div id="nanobar"></div>
+      <div class="jumbotron">
+      <div class="staffprofile-view-header" align="center"><img src="{% static 'img/gmcoatofarms.png' %}" 
+      width="100" height="100"alt=""></div>
+      <p align="center" style="font-size: 14px"><b>Employee Personal Profile Information </b></p>
+
+          </div> <!--jumboton col 1-->
+          {% if request.user.is_authenticated %}
+          {% for instance in querysetProfile %}
+                <div class="col-sm-12 aligncenter gratuity-image">
+                  <div class="col-sm-12">
+                    <div class="row">
+                      <div class="col-sm-3">
+                        <div class="profile_img">
+                          {% if instance.passport_picture.url != none %}
+                          <img class="img" src='{{instance.passport_picture.url}}' class='img-responsive' >
+                          {% else %}<img src='' class='img-responsive' >
+                          {% endif %}
+                          <br><span class="img_id" style="color: white; font-weight: bolder;">EMPID#: {{instance.employment_number}}</span>
+                        </div>
+                      </div><!--Image-display-->
+                      <div class="col-sm-2 profile_detail">
+                            <div>
+                              <b>TITLE:</b><br>{{instance.title}}<br>
+                            </div>
+                      </div>
+
+                      <div class="col-sm-2 profile_detail">
+                            <div>
+                              <b>FULL NAME:</b><br>{{instance.name}}<br>
+                            </div>
+                      </div>
+                      <div class="col-sm-2 profile_detail">
+                            <div>
+                              <b>GENDER:</b><br>{{instance.gender}}<br>
+                            </div>
+                      </div>
+                      <div class="col-sm-2 profile_detail">
+                            <div>
+                              <b>NATIONALITY:</b><br>{{instance.nationality}}<br>
+                            </div>
+                      </div>
+                      <div class="col-sm-2 profile_detail">
+                            <div>
+                              <b>ID CARD NUMBER:</b><br>{{instance.id_card_number}}<br>
+                            </div>
+                      </div>
+                      <div class="col-sm-2 profile_detail">
+                            <div>
+                              <b>HOME COUNTRY:</b><br>{{instance.home_country}}<br>
+                            </div>
+                      </div>
+                      <div class="col-sm-2 profile_detail">
+                            <div>
+                              <b>RESIDENCE:</b><br>{{instance.residence}}<br>
+                            </div>
+                      </div>
+                      <div class="col-sm-2 profile_detail">
+                            <div>
+                              <b>CONTACT NUMBER:</b><br>{{instance.contact_number}}<br>
+                            </div>
+                      </div>
+                      <div class="col-sm-2 profile_detail">
+                            <div>
+                              <b>EMAIL ADDRESS:</b><br>{{instance.email_address}}<br>
+                            </div>
+                      </div>
+<!--                     <div class="col-sm-12"> 000111
+                    <div class="row">
+ -->
+                        <div class="col-sm-3 profile_detail">
+                            <div>
+                              <b>STATUS:</b><br>{{instance.status}}<br>
+                            </div>
+                        </div>
+                        <div class="col-sm-3 profile_detail">
+                            <div>
+                              <b>STATUS START DATE:</b><br>{{instance.status_start_date}}<br>
+                            </div>
+                        </div>
+                        <div class="col-sm-3 profile_detail">
+                            <div>
+                              <b>STATUS END DATE:</b><br>{{instance.status_end_date}}<br>
+                            </div>
+                        </div>
+                        <div class="col-sm-2 profile_detail">
+                            <div>
+                              <b>VACATION:</b><br>{{instance.vocation}}<br>
+                            </div>
+                        </div>
+                        <div class="col-sm-3 profile_detail">
+                            <div>
+                              <b>VACATION START DATE:</b><br>{{instance.vocation_start_date}}<br>
+                            </div>
+                      </div>
+                      <div class="col-sm-3 profile_detail">
+                            <div>
+                              <b>VACATION END DATE:</b><br>{{instance.vocation_end_date}}<br>
+                            </div>
+                      </div>
+                      <div class="col-sm-3 profile_detail">
+                            <div>
+                              <b>ALERT DAYS:</b><br>{{instance.alert_days}}<br>
+                            </div>
+                      </div>
+                      <div class="col-sm-2 profile_detail">
+                            <div>
+                              <b>DATE OF BIRTH:</b><br>{{instance.dob}}<br>
+                            </div>
+                      </div>
+                      <div class="col-sm-3 profile_detail">
+                            <div>
+                              <b>PLACE OF BIRTH:</b><br>{{instance.place_of_birth}}<br>
+                            </div>
+                      </div>
+                      <div class="col-sm-3 profile_detail">
+                            <div>
+                              <b>FIRST APPOINTMENT DATE:</b><br>{{instance.fad}}<br>
+                            </div>
+                      </div>
+                      <div class="col-sm-3 profile_detail">
+                            <div>
+                              <b>CURRENT APPOINTMENT DATE:</b><br>{{instance.cad}}<br>
+                            </div>
+                      </div>
+                      <div class="col-sm-2 profile_detail">
+                            <div>
+                              <b>RETIREMENT DATE:</b><br>{{instance.date_of_retirement}}<br>
+                            </div>
+                      </div>
+                      <div class="col-sm-3 profile_detail">
+                            <div>
+                              <b>CONFIRMED DATE:</b><br>{{instance.cd}}<br>
+                            </div>
+                      </div>
+                      <div class="col-sm-3 profile_detail">
+                            <div>
+                              <b>DESIGNATION:</b><br>{{instance.designation}}<br>
+                            </div>
+                        </div>
+                      <div class="col-sm-3 profile_detail">
+                            <div>
+                              <b>BUDGET ENTITY:</b><br>{{instance.budget_entity}}<br>
+                            </div>
+                      </div>
+                      <div class="col-sm-2 profile_detail">
+                            <div>
+                              <b>REGION:</b><br>{{instance.division}}<br>
+                            </div>
+                      </div>
+                      <div class="col-sm-3 profile_detail">
+                            <div>
+                              <b>UNIT:</b><br>{{instance.unit}}<br>
+                            </div>
+                      </div>
+                      <div class="col-sm-3 profile_detail">
+                            <div>
+                              <b>GRADE:</b><br>{{instance.grade}}<br>
+                            </div>
+                      </div>
+                      <div class="col-sm-3 profile_detail">
+                            <div>
+                              <b>GRADE POINT:</b><br>{{instance.grade_point}}<br>
+                            </div>
+                      </div>
+                      <div class="col-sm-2 profile_detail">
+                            <div>
+                              <b>NEXT OF KIN:</b><br>{{instance.next_of_kin}}<br>
+                            </div>
+                      </div>
+
+                      <div class="col-sm-3 profile_detail">
+                            <div>
+                              <b>TIN NUMBER:</b><br>{{instance.tin_number}}<br>
+                            </div>
+                      </div>
+                      <div class="col-sm-3 profile_detail">
+                            <div>
+                              <b>MARITAL STATUS:</b><br>{{instance.marital_status}}<br>
+                            </div>
+                      </div>
+                      <div class="col-sm-3 profile_detail">
+                            <div>
+                              <b>ADDED BY:</b><br>{{instance.added_by}}<br>
+                            </div>
+                      </div>
+                      <div class="col-sm-5 profile_detail">
+                            <div>
+                              <b>UPDATED BY:</b><br>{{instance.updated_by}}<br>
+                            </div>
+                      </div>
+                      <div class="col-sm-1 profile_detail">
+                            <div>
+                              <b></b><br><br>
+                            </div>
+                      </div>
+                      <div class="col-sm-5 profile_detail">
+                            <div>
+                              <b>LAST UPDATED:</b><br>{{instance.last_updated}}<br>
+                            </div>
+                      </div>
+                      <div class="col-sm-12 profile_detail2">
+                            <div>
+                              <b>QUALIFICATION:</b><br>{{instance.qualification}}<br>
+                            </div>
+                      </div>
+
+
+                      <div class="leavecalc">
+                      <!-- <a href=""><input class='btn btn-primary' value='LEAVE CALCULATION'/></a> -->
+                      </div>
+                     
+          {% endfor %}
+
+                    </div><!--End Row 2-->
+                  </div><!--END col-sm-12 000111"-->
+                </div><!--  jumboton col 2 of jumbotron col 2 -->
+          {% endif %}
+        </div> <!--jumboton row-->
+      </div> <!--jumbotron end-->
+
+
+    </div> <!-- /container -->
+    <a href="#" class="scrollToTop">Scroll To Top</a>
+    </div>
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script> -->
+    <script src="{% static 'js/jquery.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/ie10-viewport-bug-workaround.js' %}"></script>
+    <script src="{% static 'js/jquery-1.12.3.js' %}"></script>
+    <script src="{% static 'js/jqueryui/jquery-ui.js' %}"></script>
+    <script src="{% static 'js/pager/paging.js' %}"></script>
+    <script src="{% static 'js/moment.min.js' %}"></script>
+    <script src="{% static 'js/custom.js' %}"></script>
+    <script src="{% static 'js/icheck/icheck.min.js' %}"></script>
+    <script src="{% static 'js/nprogress/nprogress.js' %}"></script>
+    <script src="{% static 'js/datetimepicker-master/build/jquery.datetimepicker.full.min.js' %}"></script>
+
+  </body>
+</html>

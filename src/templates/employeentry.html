@@ -1,0 +1,323 @@
+{% load staticfiles %}
+
+{% load crispy_forms_tags %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <!-- <link rel="icon" href="../../favicon.ico"> -->
+        <link href="{% static 'css/font-awesome.min.css' %}" rel="stylesheet">
+        <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+        <link href="{% static 'css/navbar-fixed-top.css' %}" rel="stylesheet">
+        <link href="{% static 'css/custom.css' %}" rel="stylesheet">
+        <link href="{% static 'js/jqueryui/jquery-ui.css' %}" rel="stylesheet">
+        <link href="{% static 'js/jqueryui/jquery-ui.structure.css' %}" rel="stylesheet">
+        <link href="{% static 'js/jqueryui/jquery-ui.theme.css' %}" rel="stylesheet">
+        <link href="{% static 'js/icheck/skins/square/blue.css' %}" rel="stylesheet">
+        <link href="{% static 'js/nprogress/nprogress.css' %}" rel="stylesheet">
+
+        <script src="{% static 'js/jquery.min.js' %}"></script>
+        <script src="{% static 'js/bootstrap.min.js' %}"></script>
+        <script src="{% static 'js/ie10-viewport-bug-workaround.js' %}"></script>
+        <script src="{% static 'js/jquery-1.12.3.js' %}"></script>
+        <script src="{% static 'js/jqueryui/jquery-ui.js' %}"></script>
+        <script src="{% static 'js/pager/paging.js' %}"></script>
+        <script src="{% static 'js/moment.min.js' %}"></script>
+        <link href="{% static 'js/icheck/skins/square/blue.css' %}" rel="stylesheet">
+        <link href="{% static 'js/nprogress/nprogress.css' %}" rel="stylesheet">
+        <script src="{% static 'js/icheck/icheck.min.js' %}"></script>
+        <script src="{% static 'js/nprogress/nprogress.js' %}"></script>
+        <!-- <script src="{% static 'js/datetimepicker-master/build/jquery.datetimepicker.full.min.js' %}"></script> -->
+        <script src="{% static 'js/custom.js' %}"></script>
+
+        <title>PMIS</title>
+
+    </head>
+
+  <body>
+
+
+  <div class="maincontainer">
+
+    <div class="status message">
+      <ul class="messages">
+        {% for message in messages %}
+        <li {% if message.tags %} class="{{ message.tags }}"{% endif %}><font size="4">{{ message }}</font></li>
+        {% endfor %}
+      </ul>
+    </div><!--status message end-->
+
+    <div class="container">
+
+    <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link href="{% static 'css/stylesheet.css' %}" rel="stylesheet">
+
+      <!-- Main component for a primary marketing message or call to action -->
+      <div class="jumbotron">
+      {% if request.user.is_authenticated %}
+      <div class="label">{{label}}</div><br>
+        <div class="row">
+
+            <div class="col-sm-3">
+              <div class="bucket">
+                <div class="asset-form">
+                  <form method='POST' action='' enctype='multipart/form-data'>{% csrf_token %}
+                    <div class="custom-title">{{headdashboard}}</div><br/><br/>
+                      <div class="asset-form">
+                            <p align="center" style="font-size: 14px"><b>Natonal Assembly Human Resource Information System </b></p>
+                            <div class="staffprofile-view-header" align="center"><img src="{% static 'img/gmcoatofarms.png' %}" 
+                            width="100" height="100"alt=""></div>
+
+
+                     </div><br><br> <!--jumboton col 1-->
+                       
+                      </div>
+                      <b><a href="/accounts/login/">{{signin}}</a></b>
+                      {% if request.user.is_authenticated %}
+
+                      <div class="navbarmenu1">
+                        <a href="/">
+                          <div class="navbarmenu">
+                          <li class="active"><img src="/static/img/home_ico.png" style="margin-right: 15px">Home</li>
+                          </div>
+                        </a>
+                         <div class="navbarmenu">
+                        <li class="active"><a href="/uimsapp/employee/create/"><img src="/static/img/addemp.png" style="margin-right: 16px"><span class="mymenu">Add New</span></a></li></div>
+                        <div class="navbarmenu">
+                        <li class="active"><a href="/uimsapp/employee_list/"><img src="/static/img/emplist.png" style="margin-right: 16px">Employees</a></li></div>
+                        <div class="navbarmenu">
+                        <li class="active"><a href="/"><img src="/static/img/promotion.png" style="margin-right: 16px">Promotions</a></li></div>
+                        <div class="navbarmenu">
+                        <li class="active"><a href="/"><img src="/static/img/vacation.png" style="margin-right: 16px">Vacation</a></li></div>
+                         <div class="navbarmenu">
+                        <li class="active"><a href="/"><img src="/static/img/audit.png" style="margin-right: 16px">Audit Trail</a></li></div>
+                        <div class="navbarmenu">
+                        <li class="active"><a href="/"><img src="/static/img/searchemp.png" style="margin-right: 16px">Search</a></li></div>
+                        <div class="navbarmenu">
+                        <li class="active"><a href="{% url 'uimsapp:settings' %}"> <img src="/static/img/setting.png" style="margin-right: 16px">Setting</a></li>
+                        </div>
+                      </div>
+                      <br><br>
+
+                      <div class="loginlogout">
+                        {% if request.user.is_authenticated %}
+                         <li class="dropdown">
+                          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{user}} <span class="caret"></span></a>
+                          <ul class="dropdown-menu">
+                            <li><a href="/admin/password_change">Change Password</font></a></li>
+                            <li><a href="/accounts/login">Login as another user</font></a></li>
+                          </ul>
+                        </li>
+                        <br>
+                        {% if request.user.is_authenticated %}
+                        <li><a href="/accounts/logout"><font color="red" class="btn btn-danger">Logout</font></a></li>
+                        {% else %}
+                        <li><a href="/accounts/login"><font color="red">Login</font></a></li>
+                        {% endif %}
+
+                        <!-- <li class="active"><a href="#">About <span class="sr-only">(current)</span></a></li> -->
+                        {% endif %}
+      
+                        <br>
+
+                        </div>
+
+                              
+
+                      
+                        <!-- <input class='btn btn-primary enable-depreciation' value='Enable / Disable Depreciation'/> -->
+<!--                         <a href="{% url 'uimsapp:employee_list' %}"><input class='btn btn-primary cancel-submit' value='Cancel'/></a> -
+                      {% endif %}
+                  </form>
+                </div><! End asset-form-->
+              </div><!--Bucket class end-->
+            </div> <!--jumboton col 1-->
+          
+            <div class="col-sm-9">
+              <div class="bucket">
+                <div class="asset-form">
+                  <div class="myForm">
+                    <form method='POST' action=''>{% csrf_token %}
+                        <div class="row">
+                            <div class='col-sm-12'>
+                                Personal Information <br><hr>
+                                <div class="form-row">
+                                  <div class="form-group col-md-6">
+                                    {{ form.employment_number|as_crispy_field }}
+                                    {{ form.gender|as_crispy_field }}
+                                  </div>
+                                  <div class="form-group col-md-6">
+                                    {{ form.title|as_crispy_field }}
+                                    {{ form.name|as_crispy_field }}
+                                  </div>
+                                </div>
+                                <div class="form-row">
+                                  <div class="form-group col-md-4">
+                                    {{ form.marital_status|as_crispy_field }}
+                                  </div>
+                                  <div class="form-group col-md-4">
+                                    {{ form.nationality|as_crispy_field }}
+                                  </div>
+                                  <div class="form-group col-md-4">
+                                    {{ form.home_country|as_crispy_field }}
+                                  </div>
+                                </div>
+
+                                <div class="form-row">
+                                  <div class="form-group col-md-6">
+                                    {{ form.residence|as_crispy_field }}
+                                  </div>
+                                  <div class="form-group col-md-6">
+                                    {{ form.contact_number|as_crispy_field }}
+                                  </div>
+                                  <div class="form-group col-md-4">
+                                    {{ form.status|as_crispy_field }}
+                                  </div>
+                                  <div class="form-group col-md-4">
+                                    {{ form.dob|as_crispy_field }}
+                                  </div>
+                                  <div class="form-group col-md-4">
+                                    {{ form.place_of_birth|as_crispy_field }}
+                                  </div>
+                                </div>
+                                <div class="form-row">
+                                  <div class="form-group col-md-4">
+                                    {{ form.next_of_kin|as_crispy_field }}
+                                  </div>
+                                  <div class="form-group col-md-4">
+                                    {{ form.email_address|as_crispy_field }}
+                                  </div>
+                                  <div class="form-group col-md-4">
+                                    {{ form.passport_picture|as_crispy_field }}
+                                  </div>
+
+                                <div class="form-row">
+                                  <div class="form-group col-md-4">
+                                    {{ form.School_of_graduation|as_crispy_field }}
+                                  </div>
+                                  <div class="form-group col-md-4">
+                                    {{ form.graduation_year|as_crispy_field }}
+                                  </div>
+                                    <div class="form-group col-md-4">
+                                    {{ form.highest_qualification|as_crispy_field }}
+                                  </div>
+                                </div>
+
+                                  <div class="form-group col-md-12">
+                                    {{ form.qualification|as_crispy_field }}
+                                  </div>
+                                </div>
+
+                                <div class="form-row">
+                                  <div class="form-group col-md-4">
+                                    {{ form.fad|as_crispy_field }}
+                                  </div>
+                                  <div class="form-group col-md-4">
+                                    {{ form.cad|as_crispy_field }}
+                                  </div>
+                                    <div class="form-group col-md-4">
+                                    {{ form.cd|as_crispy_field }}
+                                  </div>
+                                </div>
+
+                                <div class="form-row">
+                                  <div class="form-group col-md-4">
+                                    {{ form.designation|as_crispy_field }}
+                                  </div>
+                                  <div class="form-group col-md-4">
+                                    {{ form.budget_entity|as_crispy_field }}
+                                  </div>
+                                    <div class="form-group col-md-4">
+                                    {{ form.division|as_crispy_field }}
+                                  </div>
+                                </div>
+
+                                <div class="form-row">
+                                  <div class="form-group col-md-4">
+                                    {{ form.unit|as_crispy_field }}
+                                  </div>
+                                  <div class="form-group col-md-2">
+                                    {{ form.grade|as_crispy_field }}
+                                  </div>
+                                  <div class="form-group col-md-2">
+                                    {{ form.grade_point|as_crispy_field }}
+                                  </div>
+                                  <div class="form-group col-md-4">
+                                    {{ form.tin_number|as_crispy_field }}
+                                  </div>
+
+                                </div>
+
+
+                                <button type="submit" class="btn btn-primary">Save</button>
+                                <a href="/"><input class='btn btn-danger cancel-submit' value='Back'/></a> 
+
+
+                                <!-- <input type="submit" value='Submit'/>   -->
+                            </div>
+                        </div>
+    </form>
+</div><!-- End myform -->
+
+                </div><!-- End asset-form-->
+              </div><!--Bucket class end-->
+            </div> <!--jumboton col 1-->
+
+        <a href="#"><div id="version-display" data-toggle="modal" data-target="#myModal">PMOHRIS Ver: 1.2</div></a>
+          <div id="myModal" class="modal fade" role="dialog">
+          <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">System Information</h4>
+              </div>
+              <div class="modal-body">
+                <div class="dev-info">
+                  <p class=""><b>UNIFIED INFORMATION SYSTEMS MANAGEMENT</b></p>
+                  <p>VERSION: 1.4</p><br>
+
+                  <p class="modal-header">AVAILABLE MODULES: 
+                  <p>HUMAN RESOURCE SYSTEM</p>
+                  </p><br>
+                  <!-- <p><img src="/static/img/sunusoftSmall.png" alt="Developer Logo"></a></p>                -->
+                  <p class="modal-header">DEVELOPER:</p>
+                  <p>ACCOUNTANT GENERAL'S DEPARTMENT</p>
+                  <p>IT UNIT</p>
+                  <!-- <p>Accoutant General's Department</p> -->
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+            {% if request.user.is_authenticated %}
+
+            {% endif %}
+        
+        </div> <!--jumboton col 1-->
+          {% else %}<div class="red aligncenter">You have to <a href="/accounts/login">sign</a> in before you can access this page</div>
+          {% endif %}
+        </div> <!--jumboton row-->
+        </div> <!--jumboton row-->
+      </div> <!--jumbotron end-->
+
+    </div> <!-- /container -->
+    <a href="#" class="scrollToTop">Scroll To Top</a>
+    </div>
+
+  </body>
+</html>

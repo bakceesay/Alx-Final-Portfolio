@@ -1,0 +1,157 @@
+{% load staticfiles %}
+{% include 'navbar.html' %}
+{% load crispy_forms_tags %}
+
+<!DOCTYPE html>
+<html lang="en">
+ 
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <!-- <link rel="icon" href="../../favicon.ico"> -->
+        <link href="{% static 'css/font-awesome.min.css' %}" rel="stylesheet">
+        <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+        <link href="{% static 'css/navbar-fixed-top.css' %}" rel="stylesheet">
+        <link href="{% static 'css/custom.css' %}" rel="stylesheet">
+        <link href="{% static 'js/jqueryui/jquery-ui.css' %}" rel="stylesheet">
+        <link href="{% static 'js/jqueryui/jquery-ui.structure.css' %}" rel="stylesheet">
+        <link href="{% static 'js/jqueryui/jquery-ui.theme.css' %}" rel="stylesheet">
+        <link href="{% static 'js/icheck/skins/square/blue.css' %}" rel="stylesheet">
+        <link href="{% static 'js/nprogress/nprogress.css' %}" rel="stylesheet">
+
+        <script src="{% static 'js/jquery.min.js' %}"></script>
+        <script src="{% static 'js/bootstrap.min.js' %}"></script>
+        <script src="{% static 'js/ie10-viewport-bug-workaround.js' %}"></script>
+        <script src="{% static 'js/jquery-1.12.3.js' %}"></script>
+        <script src="{% static 'js/jqueryui/jquery-ui.js' %}"></script>
+        <script src="{% static 'js/pager/paging.js' %}"></script>
+        <script src="{% static 'js/moment.min.js' %}"></script>
+        <link href="{% static 'js/icheck/skins/square/blue.css' %}" rel="stylesheet">
+        <link href="{% static 'js/nprogress/nprogress.css' %}" rel="stylesheet">
+        <script src="{% static 'js/icheck/icheck.min.js' %}"></script>
+        <script src="{% static 'js/nprogress/nprogress.js' %}"></script>
+        <!-- <script src="{% static 'js/datetimepicker-master/build/jquery.datetimepicker.full.min.js' %}"></script> -->
+        <script src="{% static 'js/custom.js' %}"></script>
+
+        <title>PMIS</title>
+
+    </head>
+
+  <body>
+  <div class="maincontainer">
+    <div class="container">
+
+      <!-- Main component for a primary marketing message or call to action -->
+      <div class="jumbotron jumbotron-retirement">
+      <div class="label">{{label}}</div>
+      <div>
+        {% if request.user.is_authenticated %}
+        <div class="row retirement-table">
+          <div class="inline-search">
+            <form method='POST' action=''>{% csrf_token %}
+              <div class="custom-title">{{heading}}</div><br/><br/>
+                {{form|crispy}}<br>
+                <div class='submit'><input class='btn btn-primary'  type='submit' value='Search / Export'/></div>
+            </form>
+          </div><p>
+          <br><br>
+          <div class="left-button-retirement">
+
+         <!--    <div class="label">RETIREMENTS</div> -->
+
+            <div class="leftcenter">
+              <a href="{% url 'uimsapp:employee_create' %}"><div class='btn btn-danger new-retirement-botton' size="4"><font color = 'white'>Add Employee</font></div></a>
+
+              <!-- <a href="{% url 'uimsapp:employee_status_list' %}"><div class='btn btn-primary' size="4"><font color = 'white'>Employee Status</font></div></a> -->
+
+              <a href="{% url 'uimsapp:employee_promotion_list' %}"><div class='btn btn-primary' size="4"><font color = 'white'>Promotions</font></div></a>
+
+              <a href="{% url 'uimsapp:employee_vocation_list' %}"><div class='btn btn-primary' size="4"><font color = 'white'>Vacations</font></div></a>
+
+              <a href="{% url 'uimsapp:employee_history_list' %}"><div class='btn btn-primary' size="4"><font color = 'white'>History</font></div></a>
+
+              <!-- <a href="{% url 'uimsapp:employee_status_list' %}"><div class='btn btn-primary' size="4"><font color = 'white'>Longivity</font></div></a> -->
+
+              <!-- <a href="{% url 'uimsapp:employee_create' %}"><div class='btn btn-primary' size="4"><font color = 'white'>Promotions</font></div></a> -->
+              <!-- <a href="{% url 'uimsapp:employee_create' %}"><div class='btn btn-primary' size="4"><font color = 'white'>Training</font></div></a> -->
+              <!-- <a href='{{maintenance}}'><div class='btn btn-primary' size="4"><font color = 'white'>Maintenance Logs</font></div></a> -->
+              <!-- <a href='/items/change_logs'><div class='btn btn-primary' size="4"><font color = 'white'>Change Log</font></div></a> -->
+            </div>
+
+            <div class="leftcenter">
+              <a href="{% url 'uimsapp:employee_report' %}"><div class='btn btn-primary new-retirement-botton' size="4"><font color = 'white'>Other Reports</font></div></a>
+              <a href="{% url 'uimsapp:settings' %}"><div class='btn btn-primary new-retirement-botton' size="4"><font color = 'white'>Settings</font></div></a>
+            </div>
+
+            <div class="leftcenter">
+
+            <div class="rightcenter">
+              <div class='btn btn-primary new-retirement-botton' size="4"><font color = 'white'>{{assetCount}}</font></div>
+            </div>
+
+
+           </div>
+        </div>
+        {% endif %}
+
+        <div class="row right-of-retirement-form">
+            {% if not request.user.is_authenticated %}
+            <font color="red" size="5">{{title}}</font><br><br>
+            <b><a href="/accounts/login/">{{signin}}</a></b><br>
+            {% endif %}          
+
+          {% if request.user.is_authenticated %}
+              <table class='table'>
+              <thead>
+                  <tr>
+                    <th class='aligncenter'>#</th>
+                    <th class='aligncenter'>EMPLOYMENT NUMBER</th>
+                    <th class='aligncenter'>NAME [View]</th>
+                    <th class='aligncenter'>DESIGNATION</th>
+                    <th class='aligncenter'>BUDGET ENTITY</th>
+                    <th class='aligncenter'>GRADE</th>
+                    <th class='aligncenter'>STATUS</th>
+                    <th class='aligncenter'>LAST UPDATED</th>
+                    <th class='aligncenter'>FIRST APPOINTMENT DATE</th>
+                  </tr>
+                </thead>
+              {% for instance in queryset %}
+                  <tr class="spaceUnder">
+                    <td class='aligncenter'>{{forloop.counter}}</td>
+                    <td class='aligncenter'><a href="{{instance.get_absolute_url}}">{{instance.employment_number}}</a></td>
+                    <td class='aligncenter'><a href="{{instance.get_absolute_emp_Details_url}}">{{instance.name}}</a></td>
+                    <td class='aligncenter'>{{instance.designation}}</td>
+                    <td class='aligncenter'>{{instance.budget_entity}}</td>
+                    <td class='aligncenter'><a href="{{instance.get_absolute_promotion_url}}">{{instance.grade}}</a></td>
+                    <td class='aligncenter'><a href="{{instance.get_absolute_status_url}}">{{instance.status}}</a></td>
+                    <td class='aligncenter'>{{instance.last_updated}}</td>
+                    <td class='aligncenter'>{{instance.fad}}</td>
+                  </tr><!-- <br> -->
+              {% endfor %}
+              </table></font>
+          </div> <!-- end right-of-form-->
+          <dir class="create-report-menu aligncenter">
+
+        </div>
+          {% endif %}
+        <div class="row">
+          <div class="status message">
+            <ul class="messages">
+              {% for message in messages %}
+              <li {% if message.tags %} class="{{ message.tags }}"{% endif %}><font size="4">{{ message }}</font></li>
+              {% endfor %}
+            </ul>
+         </div><!--status message end-->
+    </div><!--message row END-->
+    <a href="#" class="scrollToTop">Scroll To Top</a>
+      </div> <!--jumbotron end-->
+
+    </div> <!-- /container -->
+    </div><!--maincontainer div-->
+
+  </body>
+</html>
